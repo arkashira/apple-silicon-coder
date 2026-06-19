@@ -1,0 +1,14 @@
+[build-system]
+requires = ["poetry>=1.2.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "apple-silicon-coder"
+version = "1.0.0"
+description = "Optimizes hardware configurations for Apple Silicon hardware"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
