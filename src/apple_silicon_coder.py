@@ -1,35 +1,41 @@
 import json
 from dataclasses import dataclass
-from typing import List
+from enum import Enum
+from typing import Dict
+
+class Tier(Enum):
+    FREE = 1
+    PAID = 2
 
 @dataclass
-class OptimizationResult:
-    throughput: int
-    reasoning_capabilities: bool
+class Team:
+    id: int
+    tier: Tier
+    billing_info: Dict[str, str]
 
-def optimize_for_apple_silicon(hardware_config: dict) -> OptimizationResult:
-    """ 
-    Optimizes the given hardware configuration for Apple Silicon hardware.
+class AppleSiliconCoder:
+    def __init__(self):
+        self.teams = {}
+        self.stripe_webhooks = {}
 
-    Args:
-    - hardware_config (dict): A dictionary containing the hardware configuration.
+    def create_team(self, team_id: int, tier: Tier = Tier.FREE):
+        self.teams[team_id] = Team(id=team_id, tier=tier, billing_info={})
 
-    Returns:
-    - OptimizationResult: An object containing the optimized throughput and reasoning capabilities.
-    """
-    # Simulate optimization process
-    throughput = hardware_config.get("clock_speed", 0) * hardware_config.get("num_cores", 0)
-    reasoning_capabilities = throughput >= 200  # Changed to >= to meet acceptance criteria
-    return OptimizationResult(throughput, reasoning_capabilities)
+    def upgrade_to_paid(self, team_id: int):
+        if team_id not in self.teams:
+            raise ValueError("Team not found")
+        self.teams[team_id].tier = Tier.PAID
+        self.teams[team_id].billing_info = {"stripe_customer_id": "example_customer_id"}
 
-def validate_optimization_result(result: OptimizationResult) -> bool:
-    """ 
-    Validates the optimization result against the acceptance criteria.
+    def get_team_billing_info(self, team_id: int) -> Dict[str, str]:
+        if team_id not in self.teams:
+            raise ValueError("Team not found")
+        return self.teams[team_id].billing_info
 
-    Args:
-    - result (OptimizationResult): The optimization result to validate.
+    def handle_stripe_webhook(self, event: Dict[str, str]):
+        if event["type"] == "invoice.payment_succeeded":
+            team_id = int(event["metadata"]["team_id"])
+            self.teams[team_id].billing_info["payment_status"] = "paid"
 
-    Returns:
-    - bool: True if the result meets the acceptance criteria, False otherwise.
-    """
-    return result.throughput >= 200 and result.reasoning_capabilities
+    def get_paid_tier_price(self) -> int:
+        return 49
