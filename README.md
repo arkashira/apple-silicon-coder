@@ -1,11 +1,7 @@
 # Apple Silicon Coder
-Optimizes hardware configurations for Apple Silicon hardware.
 
-## Usage
-1. Install the project using `poetry install`.
-2. Run the tests using `pytest`.
-3. Use the `optimize_for_apple_silicon` function to optimize a hardware configuration.
+This project provides a model optimizer for Apple Silicon devices.
 
-## Acceptance Criteria
-* At least 200t/s throughput
-* Reasoning capabilities
+## Installation
+
+To install the project, run the following command:
