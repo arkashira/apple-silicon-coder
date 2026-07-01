@@ -1,116 +1,103 @@
 <h3 align="center">🛠️ apple-silicon-coder</h3>
-
 <div align="center">
-  
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) &nbsp;
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/) &nbsp;
-[![Build](https://img.shields.io/github/actions/workflow/status/axentx/apple-silicon-coder/ci.yml?branch=main)](https://github.com/axentx/apple-silicon-coder/actions) &nbsp;
-[![Stars](https://img.shields.io/github/stars/axentx/apple-silicon-coder?style=social)](https://github.com/axentx/apple-silicon-coder/stargazers)
-
+  <a href="https://github.com/axentx/apple-silicon-coder/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"/>
+  </a>
+  <a href="https://github.com/axentx/apple-silicon-coder">
+    <img src="https://img.shields.io/github/languages/top/axentx/apple-silicon-coder?color=blue" alt="Language: Python"/>
+  </a>
+  <a href="https://github.com/axentx/apple-silicon-coder/actions/workflows/test.yml">
+    <img src="https://github.com/axentx/apple-silicon-coder/actions/workflows/test.yml/badge.svg" alt="Build Status"/>
+  </a>
+  <a href="https://github.com/axentx/apple-silicon-coder/stargazers">
+    <img src="https://img.shields.io/github/stars/axentx/apple-silicon-coder?style=social" alt="Stars"/>
+  </a>
 </div>
 
----  
+---
 
-# 🚀 apple-silicon-coder  
+# 🚀 apple-silicon-coder
 
-**Power Python developers with fast Apple Silicon code generation.** A coding model optimized for Apple Silicon hardware, delivering ≥ 200 t/s throughput and reasoning capabilities.
+**Empower Python developers and ML researchers with fast, Apple Silicon-optimized code generation.**
 
-## ⚡ Why apple-silicon-coder?  
+## Why apple-silicon-coder?
 
-- **Blazing Speed** – ≥ 200 tokens / second on M‑series chips, cutting generation latency in half.  
-- **Hardware‑Native** – Tailored for Apple Silicon, leveraging the Neural Engine for lower power draw.  
-- **Lightweight Footprint** – Minimal dependencies; the package installs in < 5 seconds on a fresh macOS env.  
-- **Fine‑Tune Friendly** – `fine_tune()` lets researchers adapt the model to domain‑specific code with a single call.  
-- **Built for Experimentation** – Ideal for ML researchers prototyping code‑generation pipelines on macOS.  
-- **Open‑Source & MIT‑Licensed** – Free to use, modify, and commercialize without restrictions.  
-- **Validated Tests** – 100 % pytest coverage ensures core utilities work out‑of‑the‑box.
+- **Lightweight & Fast**: Built specifically for Apple Silicon, delivering high throughput with minimal overhead.
+- **Modular Design**: Offers `create_model()`, `fine_tune()`, and `validate()` for flexible experimentation.
+- **Developer-Friendly**: Designed for rapid prototyping and deployment of code-generation models on macOS.
+- **Sandbox-Tested**: All core functions have been tested in isolated environments for reliability.
+- **Extensible Scaffold**: Provides a clean foundation for further development and integration.
+- **Open Source**: MIT licensed, encouraging community contributions and transparency.
+- **Apple-Specific Optimization**: Leverages native ARM64 architecture for superior performance.
 
-## 🔥 Feature Overview  
+## Feature Overview
 
-| Feature | Description |
-|---------|-------------|
-| `create_model()` | Instantiates a pre‑trained Apple‑silicon‑optimized code‑generation model. |
-| `fine_tune()` | Simple API to further train the model on custom code corpora. |
-| `validate()` | Runs quick sanity checks (syntax, style, execution) on generated snippets. |
-| Pythonic API | All functions are pure‑Python, no compiled extensions required. |
-| Test Suite | Comprehensive pytest suite under `tests/` guarantees reliability. |
+| Feature           | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `create_model()` | Initializes a new code-generation model tailored for Apple Silicon.       |
+| `fine_tune()`    | Adapts pre-trained models using custom datasets for domain-specific tasks. |
+| `validate()`     | Evaluates model outputs against predefined criteria for accuracy and relevance. |
 
-## 🛠️ Tech Stack  
+## Tech Stack
 
-- Python 🐍  
+- **Language**: Python
 
-## 📦 Project Structure  
+## Project Structure
 
 ```
 apple-silicon-coder/
-├─ business/          # Business artefacts (PRD, BMC, ROADMAP, …)
-├─ docs/              # Documentation source files
-├─ src/               # Core library (`apple_silicon_coder/`)
-│   ├─ __init__.py
-│   ├─ model.py       # create_model, fine_tune, validate
-│   └─ utils.py
-├─ tests/             # pytest test suite
-├─ pyproject.toml     # Build metadata & entry points
-├─ requirements.txt   # Runtime dependencies
-└─ README.md
+├── business/         # Business planning and strategy docs
+├── docs/             # Documentation assets
+├── src/              # Core source code (`apple_silicon_coder` module)
+├── tests/            # Unit and integration tests
+├── README.md         # This file
+├── pyproject.toml    # Project metadata and dependencies
+├── requirements.txt  # Explicit dependency list
+└── ...
 ```
 
-## 🔧 Getting Started  
+## Getting Started
 
+Install dependencies:
 ```bash
-# Clone the repo
-git clone https://github.com/axentx/apple-silicon-coder.git
-cd apple-silicon-coder
-
-# Install the package in editable mode
-python -m pip install -e .
-
-# (Optional) Install extra runtime deps
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### Quick usage  
+Run tests:
+```bash
+pytest tests/
+```
 
+Use the library in your Python script:
 ```python
 from apple_silicon_coder import create_model, fine_tune, validate
 
-# Create the base model
 model = create_model()
-
-# Fine‑tune on your own dataset (list of (prompt, code) pairs)
-model = fine_tune(model, dataset=[("def add(a, b):", "    return a + b")])
-
-# Generate and validate a snippet
-snippet = model.generate("def fibonacci(n):")
-print(validate(snippet))
+fine_tune(model, dataset="my_dataset.json")
+result = validate(model, prompt="def hello_world(): ...")
 ```
 
-### Run the test suite  
+## Deploy
 
+This is a Python library intended for local or developer use. Deployment involves installing via pip or cloning the repo directly into your environment.
+
+To publish to PyPI:
 ```bash
-pytest -q
-```
-
-## 🌐 Deploy  
-
-The package can be published to PyPI:
-
-```bash
-# Build the distribution
 python -m build
-
-# Upload to TestPyPI (replace with real PyPI for production)
-python -m twine upload --repository testpypi dist/*
+twine upload dist/*
 ```
 
-## 📈 Status  
+> ⚠️ Note: This project is currently in skeleton stage and not yet ready for production deployment.
 
-Active development – latest commit **f02ca16**: *feat(apple-silicon-coder): real, sandbox‑tested implementation* (2026‑06‑28).
+## Status
 
-## 🤝 Contributing  
+📦 **Project Stage:** Skeleton  
+📝 Last updated: `d587e79` — README generated by README-Keeper  
 
-Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to propose improvements.
+## Contributing
 
-## 📄 License  
+We welcome contributions! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-This project is licensed under the **MIT License**.
+## License
+
+This project is licensed under the **MIT License** – see the [LICENSE](./LICENSE) file for details.
